@@ -1,0 +1,90 @@
+#+title: One Thousand Book Project
+* What is this?
+In December of 2022, I had the idea that a fun project would be to guess how
+many books I could read before I left this earth. Clearly, there a  lot of
+uknowns here, like how long I can expect to be above ground and my pace of
+reading during that time.
+
+I love reading, both for work and pleasure, and fortunately, the line between
+those two spheres often blurs for me. However, I never seriously tracked what I
+read, except for what a research project, paper, or proposal required. Once I
+completed that project, I stopped keeping records.
+
+
+So, this idea came to me just shy of my 61's birthday. In terms of lifespan, I
+estimated 20 good years remaining, and for reading pace, I thought 1 book per
+week would be a good target. So, with rounding, that is where the 1000 book
+project comes from.
+* Organization
+I keep track of my readings in a zotero collection called `1000_books`. Each
+time I finish a book, I add an entry for the book into that collection and put
+the completion date in the `Extra` field. Typically, I start the collection
+entry with the zotero wizard which takes the ISBN.
+
+This collection  exports to a bibtex file upon update.
+
+The code below is a work-in-progress, where I'm exploring options for generating
+reports on how this project is progressing.
+
+Hopefully, others may find this of interest or have ideas of how this could be
+further developed.
+
+* Requirements
+
+- [[https://bibtexparser.readthedocs.io/en/main/][bibtexparser]]
+
+* Imports
+#+begin_src python :tangle books.py
+"""One thousand books project"""
+
+import pandas as pd
+import bibtexparser
+
+
+
+#+end_src
+
+* Creating a pandas dataframe from the bibtex file
+#+begin_src python :tangle books.py
+def read_bibtex_to_dataframe(bibtex_file):
+    """
+    Reads a BibTeX file and converts it into a pandas DataFrame.
+
+    Parameters:
+    bibtex_file (str): Path to the BibTeX file.
+
+    Returns:
+    pandas.DataFrame: DataFrame containing the BibTeX entries.
+    """
+    with open(bibtex_file) as bibtex_file:
+        bibtex_str = bibtex_file.read()
+
+    bib_database = bibtexparser.loads(bibtex_str)
+    df = pd.DataFrame(bib_database.entries)
+    return df
+
+
+
+
+#+end_src
+
+
+* Example Useage
+#+begin_src python :tangle books.py
+# Example usage:
+df = read_bibtex_to_dataframe("1000_Books.bib")
+print(df)
+
+#+end_src
+* Monthly summary
+
+#+begin_src python :tangle books.py
+# Get a summary of pages read by year-month
+df["date"] = pd.to_datetime(df["annotation"], errors="coerce")
+df["year"] = df["date"].dt.year
+df["month"] = df["date"].dt.month
+df["pages"] = df["pagetotal"].astype(int)
+monthly = df.groupby(["year", "month"])["pages"].sum()
+
+#+end_src
+
