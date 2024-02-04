@@ -16,12 +16,12 @@ estimated 20 good years remaining, and for reading pace, I thought 1 book per
 week would be a good target. So, with rounding, that is where the 1000 book
 project comes from.
 * Organization
-I keep track of my readings in a zotero collection called `1000_books`. Each
+I keep track of my readings in a zotero collection called ~1000_Books~. Each
 time I finish a book, I add an entry for the book into that collection and put
-the completion date in the `Extra` field. Typically, I start the collection
+the completion date in the ~Extra~ field. Typically, I start the collection
 entry with the zotero wizard which takes the ISBN.
 
-This collection  exports to a bibtex file upon update.
+This collection  exports to a bibtex file ~1000_Books.bib~ upon update.
 
 The code below is a work-in-progress, where I'm exploring options for generating
 reports on how this project is progressing.
