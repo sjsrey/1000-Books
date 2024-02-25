@@ -69,7 +69,7 @@ def read_bibtex_to_dataframe(bibtex_file):
 #+end_src
 
 
-* Example Useage
+* Example Usage
 #+begin_src python :tangle books.py
 # Example usage:
 df = read_bibtex_to_dataframe("1000_Books.bib")
