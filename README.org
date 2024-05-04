@@ -33,6 +33,11 @@ further developed.
 
 - [[https://bibtexparser.readthedocs.io/en/main/][bibtexparser]]
 
+  The biblography file has to be exported from Zotero using the BetterBibtex
+  plugin and the the BibLatex exporter which will create the [[https://forums.zotero.org/discussion/52659/export-to-bibtex-loses-the-field-of-pages][pagetotal]] field on
+  export.
+
+  
 * Imports
 #+begin_src python :tangle books.py
 """One thousand books project"""
@@ -43,6 +48,9 @@ import bibtexparser
 
 
 #+end_src
+
+#+RESULTS:
+: None
 
 * Creating a pandas dataframe from the bibtex file
 #+begin_src python :tangle books.py
@@ -68,14 +76,22 @@ def read_bibtex_to_dataframe(bibtex_file):
 
 #+end_src
 
+#+RESULTS:
+: None
+
 
 * Example Usage
 #+begin_src python :tangle books.py
 # Example usage:
+from books import read_bibtex_to_dataframe
 df = read_bibtex_to_dataframe("1000_Books.bib")
 print(df)
 
 #+end_src
+
+#+RESULTS:
+: None
+
 * Monthly summary
 
 #+begin_src python :tangle books.py
