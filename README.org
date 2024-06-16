@@ -1,4 +1,4 @@
-#+title: One Thousand Book Project
+#+title: One Thousand Books Project
 * What is this?
 In December of 2022, I had the idea that a fun project would be to guess how
 many books I could read before I left this earth. Clearly, there a  lot of
@@ -13,7 +13,7 @@ completed that project, I stopped keeping records.
 
 So, this idea came to me just shy of my 61's birthday. In terms of lifespan, I
 estimated 20 good years remaining, and for reading pace, I thought 1 book per
-week would be a good target. So, with rounding, that is where the 1000 book
+week would be a good target. So, with rounding, that is where the 1000 books
 project comes from.
 * Organization
 I keep track of my readings in a zotero collection called ~1000_Books~. Each
