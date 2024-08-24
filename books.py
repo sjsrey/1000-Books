@@ -20,13 +20,11 @@ def read_bibtex_to_dataframe(bibtex_file):
     df = pd.DataFrame(bib_database.entries)
     return df
 
-# Example usage:
-df = read_bibtex_to_dataframe("1000_Books.bib")
-print(df)
-
-# Get a summary of pages read by year-month
-df["date"] = pd.to_datetime(df["annotation"], errors="coerce")
-df["year"] = df["date"].dt.year
-df["month"] = df["date"].dt.month
-df["pages"] = df["pagetotal"].astype(int)
-monthly = df.groupby(["year", "month"])["pages"].sum()
+def monthly(bibtex_file):
+    df = read_bibtex_to_dataframe(bibtex_file)
+    df["date"] = pd.to_datetime(df["annotation"], errors="coerce")
+    df["year"] = df["date"].dt.year
+    df["month"] = df["date"].dt.month
+    df["pages"] = df["pagetotal"].astype(float).fillna(0).astype(int)
+    monthly_df = df.groupby(["year", "month"])["pages"].sum()
+    return monthly_df

@@ -52,6 +52,9 @@ import bibtexparser
 #+RESULTS:
 : None
 
+<s
+
+
 * Creating a pandas dataframe from the bibtex file
 #+begin_src python :tangle books.py
 def read_bibtex_to_dataframe(bibtex_file):
@@ -79,9 +82,26 @@ def read_bibtex_to_dataframe(bibtex_file):
 #+RESULTS:
 : None
 
+#+begin_src python :tangle books.py
+def monthly(bibtex_file):
+    df = read_bibtex_to_dataframe(bibtex_file)
+    df["date"] = pd.to_datetime(df["annotation"], errors="coerce")
+    df["year"] = df["date"].dt.year
+    df["month"] = df["date"].dt.month
+    df["pages"] = df["pagetotal"].astype(float).fillna(0).astype(int)
+    monthly_df = df.groupby(["year", "month"])["pages"].sum()
+    return monthly_df
+
+   
+    
+  
+#+end_src
+
+#+RESULTS:
+
 
 * Example Usage
-#+begin_src python :tangle books.py
+#+begin_src python :tangle books_useage.py
 # Example usage:
 from books import read_bibtex_to_dataframe
 df = read_bibtex_to_dataframe("1000_Books.bib")
@@ -94,13 +114,13 @@ print(df)
 
 * Monthly summary
 
-#+begin_src python :tangle books.py
-# Get a summary of pages read by year-month
-df["date"] = pd.to_datetime(df["annotation"], errors="coerce")
-df["year"] = df["date"].dt.year
-df["month"] = df["date"].dt.month
-df["pages"] = df["pagetotal"].astype(int)
-monthly = df.groupby(["year", "month"])["pages"].sum()
+#+begin_src python :tangle books_useage.py
+# Get a summary  read by year-month
+from books import monthly
+mon = monthly('1000_Books.bib')
+mon
 
 #+end_src
 
+#+RESULTS:
+: None
